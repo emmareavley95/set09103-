@@ -11,13 +11,37 @@ app = Flask(__name__)
 #def login():
 #  return "Now we would username &password"
 
-#@app.route("/")
-#def root():
-#  return "The default, 'root' route"
-
 @app.route("/")
-def hello():
-  return "Hello Napier from Emma!"
+def root():
+  return "The default, 'root' route"
+
+@app.route("/account/", methods=['POST', 'GET'])
+def account():
+  if request.method == 'POST':
+    print request.form
+    name = request.form['name']
+    return "Hello %s" % name
+  else:
+    page ='''
+    <html><body>
+      <form action="" method="post" name=form">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name"/>
+        <input type="submit" name="submit" id="submit"/>
+      </form>
+    </body><html>'''
+    return page
+
+#@app.route("/")
+#def hello():
+#  return "Hello Napier from Emma!"
+
+@app.route('/static/img')
+def static_img():
+  start = '<img src="'
+  url = url_for('static', filename='macaron.jpeg')
+  end = '">'
+  return start+url+end, 200
 
 @app.route('/force404')
 def force404():
