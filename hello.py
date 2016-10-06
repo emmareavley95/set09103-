@@ -1,40 +1,37 @@
-from flask import Flask, redirect, url_for
+from flask import Flask, request, url_for
 app = Flask(__name__)
-
-#@app.route("/private")
-#def private():
-## test for user logged in failed
-## so redirect to login URL
-#  return redirect(url_for('login'))
-
-#@app.route('/login')
-#def login():
-#  return "Now we would username &password"
 
 @app.route("/")
 def root():
-  return "The default, 'root' route"
+  return "Hello Emma!"
 
-@app.route("/account/", methods=['POST', 'GET'])
+@app.route("/display/")
+def display():
+  return '<img src="'+url_for('static', filename='uploads/file.png'
+    )+'"/>'
+
+@app.route("/upload/", methods=['POST','GET'])
 def account():
   if request.method == 'POST':
-    print request.form
-    name = request.form['name']
-    return "Hello %s" % name
+    f = request.files['datafile']
+    f.save('static/uploads/file.png')
+    return "File Uploaded"
   else:
-    page ='''
-    <html><body>
-      <form action="" method="post" name=form">
-        <label for="name">Name:</label>
-        <input type="text" name="name" id="name"/>
-        <input type="submit" name="submit" id="submit"/>
-      </form>
-    </body><html>'''
-    return page
+    page='''
+    <html>
+    <body>
+    <form action="" method="post" name="form" enctype="multipart/form-data">
+      <input type="file" name="datafile" />
+      <input type="submit" name="submit" id="submit">
+    </form>
+    </body>
+    </html>
+    '''
+    return page, 200
 
-#@app.route("/")
-#def hello():
-#  return "Hello Napier from Emma!"
+@app.route("/add/<int:first>/<int:second>")
+def add(first, second):
+  return str(first+second)
 
 @app.route('/static/img')
 def static_img():
@@ -51,10 +48,6 @@ def force404():
 def page_not_found(error):
   return "Couldn't find the page you requested", 404
 
-#@app.route("/goodbye/")
-#def goodbye():
-#  return "goodbye cruel world :("
-
 if __name__ == "__main__":
-  app.run(host='0.0.0.0', debug=True)
+  app.run(host='0.0.0.0',debug=True)
 
