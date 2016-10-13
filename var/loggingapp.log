@@ -1,0 +1,5 @@
+INFO | 2016-10-13 14:58:23,305 | config | root | Logging a test message from /
+INFO | 2016-10-13 14:58:24,184 | config | root | Logging a test message from /
+INFO | 2016-10-13 14:59:05,265 | config | root | Logging a test message from /
+INFO | 2016-10-13 14:59:05,519 | config | root | Logging a test message from /
+INFO | 2016-10-13 15:06:43,812 | config | root | Logging a test message from /
