@@ -8,16 +8,14 @@ app.secret_key = 'supersecret'
 def index():
     return render_template('index.html')
 
-    #return "Root Page"
-
+@app.route('/login/')
 @app.route('/login/<message>/')
 def login(message=None):
-    print message
     if (message != None):
        flash(message)
     else:  
-       flash("A default message")
-    return "Let's pretend you just logged in"
+       flash("World!")
+    return redirect(url_for('index'))
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True)
