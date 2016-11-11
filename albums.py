@@ -39,7 +39,7 @@ def root():
         page.append(str(row))
         page.append('</li>')
 
-    page.append('</ul><html>')
+    page.append('</ul></html>')
     return ''.join(page)
 
 if __name__ == "__main__":
